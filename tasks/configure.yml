@@ -23,6 +23,7 @@
     - deluge_config
   become: true
 
+# deluged
 - name: Checking if we should template the deluged config file
   template:
     src: "{{ deluge_core_conf_template }}"
@@ -58,6 +59,7 @@
   tags:
     - deluge_config
 
+# deluge-web
 - name: Checking if we should template the deluge-web config file
   template:
     src: "{{ deluge_web_conf_template }}"
