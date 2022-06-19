@@ -31,7 +31,7 @@
   become: true
 
 - name: Install deluged service
-  template:
+  ansible.builtin.template:
     src: "deluged.service.j2"
     dest: "/etc/systemd/system/deluged.service"
     owner: root
@@ -43,7 +43,7 @@
 
 # deluge-web
 - name: Check for deluge-web user service directory
-  stat:
+  ansible.builtin.stat:
     path: "{{ deluge_web_user_service_dir | dirname }}"
   register: _deluge_web_user_service_dir
   when: deluge_web
@@ -51,7 +51,7 @@
     - deluge
 
 - name: Create deluge-web user service directory
-  file:
+  ansible.builtin.file:
     path: "{{ deluge_web_user_service_dir }}"
     state: directory
     mode: '0750'
@@ -66,7 +66,7 @@
   become: true
 
 - name: Copy user service config
-  template:
+  ansible.builtin.template:
     src: "user.conf.j2"
     dest: "{{ deluge_web_user_service_dir }}user.conf"
     owner: root
@@ -78,7 +78,7 @@
     - deluge
 
 - name: Install deluge-web service
-  template:
+  ansible.builtin.template:
     src: "deluge-web.service.j2"
     dest: "/etc/systemd/system/deluge-web.service"
     owner: root
@@ -95,14 +95,14 @@
   become: true
 
 - name: Enable and start deluged service
-  systemd:
+  ansible.builtin.systemd:
     name: deluged
     enabled: true
   become: true
   changed_when: false
 
 - name: Enable and start deluge-web service
-  systemd:
+  ansible.builtin.systemd:
     name: deluge-web
     enabled: true
   become: true

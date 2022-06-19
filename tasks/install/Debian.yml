@@ -41,7 +41,7 @@
     - deluge
 
 - name: Install deluge-web
-  apt:
+  ansible.builtin.apt:
     name: deluge-web
     update_cache: true
     state: present
