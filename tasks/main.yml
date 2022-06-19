@@ -1,11 +1,11 @@
 ---
 - name: Check for supported OS
-  assert:
+  ansible.builtin.assert:
     that:
       - "ansible_os_family in supported_ansible_os_families"
 
 - name: Start Install
-  include: install/main.yml
+  ansible.builtin.include: install/main.yml
 
 - name: Start Configure
-  include: configure.yml
+  ansible.builtin.include: configure.yml

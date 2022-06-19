@@ -1,7 +1,7 @@
 ---
 
 - name: Include OS-specific tasks
-  include: "{{ ansible_os_family }}.yml"
+  ansible.builtin.include: "{{ ansible_os_family }}.yml"
 
 - name: Create deluge group
   ansible.builtin.group:
@@ -16,12 +16,12 @@
     key:
 
 - name: Set fact if user exists
-  set_fact:
+  ansible.builtin.set_fact:
     user_exists: true
   when: deluge_service_user in ansible_facts.getent_passwd
 
 - name: Set fact if user does not exist
-  set_fact:
+  ansible.builtin.set_fact:
     user_exists: false
   when: deluge_service_user not in ansible_facts.getent_passwd
 
@@ -51,4 +51,4 @@
     - deluge
 
 - name: Include systemd configs
-  include: systemd.yml
+  ansible.builtin.include: systemd.yml
