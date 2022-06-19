@@ -23,6 +23,4 @@ deluge_web_password: deluge
 deluge_web_password_salt: "{{ 16 | random_salt  }}"
 
 # Logging
-enable_logging: false
-deluge_log_dir: '/var/log/deluge/'
-deluge_log_level: warning
+deluge_log_level: info

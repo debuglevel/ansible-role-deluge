@@ -7,13 +7,7 @@ Wants=deluged.service
 [Service]
 Type=simple
 UMask=027
-
-{% if enable_logging == true %}
-ExecStart=/usr/bin/deluge-web -d -c {{ deluge_config_dir }} -l {{ deluge_log_dir }}web.log -L {{ deluge_log_level }}
-{% else %}
-ExecStart=/usr/bin/deluge-web -d -c {{ deluge_config_dir }}
-{% endif %}
-
+ExecStart=/usr/bin/deluge-web -d -c {{ deluge_config_dir }} -L {{ deluge_log_level }}
 Restart=on-failure
 
 [Install]
