@@ -13,6 +13,7 @@ deluge_user_service_dir: '/etc/systemd/system/deluged.service.d/'
 deluge_core_conf_template: 'core.conf.j2'
 deluge_plugins:
   - Blocklist
+  - YaRSS2
 
 # Deluge web
 deluge_web: true
