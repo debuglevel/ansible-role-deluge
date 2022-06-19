@@ -2,7 +2,7 @@
 
 - name: Check for config directory
   stat:
-    path: "{{ deluge_config_dir | dirname }}"
+    path: "{{ deluge_config_dir }}"
   register: _deluge_config_dir
   tags:
     - deluge
