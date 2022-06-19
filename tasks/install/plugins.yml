@@ -4,7 +4,7 @@
     # e.g. https://bitbucket.org/bendikro/deluge-yarss-plugin/downloads/YaRSS2-2.1.5-py3.9.egg
     url: '{{ deluge_yarss2_egg_url }}'
     dest: '{{ deluge_config_dir }}/plugins'
-    mode: 0444
+    mode: 0644
     group: '{{ deluge_service_group }}'
     owner: '{{ deluge_service_user }}'
   become: yes
