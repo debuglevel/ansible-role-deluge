@@ -11,7 +11,7 @@
   tags:
     - deluge
 
-- name: Add Ubuntu source
+- name: Add PPA
   ansible.builtin.apt_repository:
     repo: deb [trusted=yes] http://ppa.launchpad.net/deluge-team/stable/ubuntu/ xenial main
     state: present
@@ -20,7 +20,7 @@
   tags:
     - deluge
 
-- name: Add Ubuntu apt key
+- name: Add apt key
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
     id: C5E6A5ED249AD24C
@@ -30,7 +30,7 @@
   tags:
     - deluge
 
-- name: Install Deluge Daemon
+- name: Install deluged
   ansible.builtin.apt:
     name: ['deluged', 'deluge-console']
     update_cache: true
@@ -40,7 +40,7 @@
   tags:
     - deluge
 
-- name: Install Deluge Web
+- name: Install deluge-web
   apt:
     name: deluge-web
     update_cache: true
