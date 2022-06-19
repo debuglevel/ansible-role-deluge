@@ -1,12 +1,5 @@
 ---
 # deluged
-- name: Check for deluged user service directory
-  ansible.builtin.stat:
-    path: "{{ deluge_user_service_dir | dirname }}"
-  register: _deluge_user_service_dir
-  tags:
-    - deluge
-
 - name: Create deluged user service directory
   ansible.builtin.file:
     path: "{{ deluge_user_service_dir }}"
@@ -14,9 +7,6 @@
     mode: '0750'
     owner: root
     group: root
-  when:
-    - _deluge_user_service_dir is defined
-    - not _deluge_user_service_dir.stat.exists
   tags:
     - deluge
   become: true
@@ -42,14 +32,6 @@
     - deluge
 
 # deluge-web
-- name: Check for deluge-web user service directory
-  ansible.builtin.stat:
-    path: "{{ deluge_web_user_service_dir | dirname }}"
-  register: _deluge_web_user_service_dir
-  when: deluge_web
-  tags:
-    - deluge
-
 - name: Create deluge-web user service directory
   ansible.builtin.file:
     path: "{{ deluge_web_user_service_dir }}"
@@ -58,8 +40,6 @@
     owner: root
     group: root
   when:
-    - _deluge_web_user_service_dir is defined
-    - not _deluge_web_user_service_dir.stat.exists
     - deluge_web
   tags:
     - deluge

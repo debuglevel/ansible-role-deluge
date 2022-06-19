@@ -11,7 +11,7 @@
   become_user: root
 
 - name: Get all users
-  getent:
+  ansible.builtin.getent:
     database: passwd
     key:
 
@@ -38,24 +38,14 @@
   become: true
   become_user: root
 
-- name: Check for download directory
-  stat:
-    path: "{{ deluge_download_location | dirname }}"
-  register: _deluge_download_location
-  tags:
-    - deluge
-
 - name: Ensure Deluge download directory
-  file:
+  ansible.builtin.file:
     path: "{{ deluge_download_location }}"
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
     mode: '0755'
     recurse: true
     state: directory
-  when:
-    - _deluge_download_location is defined
-    - not _deluge_download_location.stat.exists
   become: true
   tags:
     - deluge

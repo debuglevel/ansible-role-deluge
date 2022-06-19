@@ -1,13 +1,4 @@
 ---
-
-- name: Check for config directory
-  ansible.builtin.stat:
-    path: "{{ deluge_config_dir }}"
-  register: _deluge_config_dir
-  tags:
-    - deluge
-    - deluge_config
-
 - name: Create config directory
   ansible.builtin.file:
     path: "{{ deluge_config_dir }}"
@@ -15,9 +6,6 @@
     mode: 0700
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
-  when:
-    - _deluge_config_dir is defined
-    - not _deluge_config_dir.stat.exists
   tags:
     - deluge
     - deluge_config
