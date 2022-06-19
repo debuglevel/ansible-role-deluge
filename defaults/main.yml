@@ -1,5 +1,5 @@
 ---
-# Deluge
+# Deluged
 deluge_service_user: deluge
 deluge_service_group: deluge
 deluged_port: 58846

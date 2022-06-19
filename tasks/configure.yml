@@ -1,6 +1,6 @@
 ---
 
-- name: Check for config dir
+- name: Check for config directory
   stat:
     path: "{{ deluge_config_dir | dirname }}"
   register: _deluge_config_dir
@@ -23,7 +23,7 @@
     - deluge_config
   become: true
 
-- name: Checking if we should template the deluge config file
+- name: Checking if we should template the deluged config file
   template:
     src: "{{ deluge_core_conf_template }}"
     dest: "{{ deluge_config_dir }}/core.conf"
@@ -45,7 +45,7 @@
   tags:
     - deluge_config
 
-- name: Copy deluge configuration file
+- name: Copy deluged configuration file
   template:
     src: "{{ deluge_core_conf_template }}"
     dest: "{{ deluge_config_dir }}/core.conf"

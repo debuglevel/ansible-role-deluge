@@ -1,5 +1,5 @@
 ---
-- name: check for supported OS
+- name: Check for supported OS
   assert:
     that:
       - "ansible_os_family in supported_ansible_os_families"
