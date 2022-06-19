@@ -50,5 +50,9 @@
   tags:
     - deluge
 
+- name: Install plugins
+  ansible.builtin.include: plugins.yml
+
 - name: Include systemd configs
   ansible.builtin.include: systemd.yml
+  

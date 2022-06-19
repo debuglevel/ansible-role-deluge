@@ -1,0 +1,19 @@
+- name: Download YaRSS2 plugin
+  ansible.builtin.get_url:
+    # TODO: would be nice if URL is constructed from python version
+    # e.g. https://bitbucket.org/bendikro/deluge-yarss-plugin/downloads/YaRSS2-2.1.5-py3.9.egg
+    url: '{{ deluge_yarss2_egg_url }}'
+    dest: '{{ deluge_config_dir }}/plugins'
+    mode: 0444
+    group: '{{ deluge_service_group }}'
+    owner: '{{ deluge_service_user }}'
+  become: yes
+  become_user: '{{ deluge_service_user }}'
+
+- name: Configure YaRSS2 plugin
+  ansible.builtin.template:
+    src: templates/yarss2.conf.j2
+    dest: '{{ deluge_config_dir }}/yarss2.conf'
+    backup: yes
+  become: yes
+  become_user: '{{ deluge_service_user }}'
