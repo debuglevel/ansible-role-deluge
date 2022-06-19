@@ -8,7 +8,7 @@
     group: "{{ deluge_service_group }}"
     mode: '0640'
     state: present
-  check_mode: True
+  check_mode: true
   register: _deluge_users_to_add
   with_items: "{{ deluge_users_to_add }}"
   tags:
@@ -23,14 +23,14 @@
     group: "{{ deluge_service_group }}"
     mode: '0640'
     state: absent
-  check_mode: True
+  check_mode: true
   register: _deluge_users_to_remove
   with_items: "{{ deluge_users_to_remove }}"
   tags:
     - deluge
     - deluge_config
 
-- name: Deluge users need to be added or removed. deluge should be stopped beforehand
+- name: Deluge users need to be added or removed. deluged should be stopped beforehand
   ansible.builtin.service:
     name: deluged
     state: stopped
@@ -39,7 +39,7 @@
     - deluge
     - deluge_config
 
-- name: Deluge users to be added should be present
+- name: Add deluge users
   ansible.builtin.lineinfile:
     dest: "{{ deluge_config_dir }}/auth"
     regexp: "^{{ item.name }}:{{ item.password }}:{{ item.access_level }}$"
@@ -47,7 +47,7 @@
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
     mode: '0640'
-    backup: True
+    backup: true
     state: present
   with_items: "{{ deluge_users_to_add }}"
   notify: restart deluged
@@ -55,14 +55,14 @@
     - deluge
     - deluge_config
 
-- name: Deluge users to be removed should be absent
+- name: Remove deluge users
   ansible.builtin.lineinfile:
     dest: "{{ deluge_config_dir }}/auth"
     regexp: "^{{ item }}"
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
     mode: '0640'
-    backup: True
+    backup: true
     state: absent
   with_items: "{{ deluge_users_to_remove }}"
   notify: restart deluged
