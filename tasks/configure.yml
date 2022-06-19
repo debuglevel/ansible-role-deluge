@@ -1,7 +1,7 @@
 ---
 
 - name: Check for config directory
-  stat:
+  ansible.builtin.stat:
     path: "{{ deluge_config_dir }}"
   register: _deluge_config_dir
   tags:
@@ -9,7 +9,7 @@
     - deluge_config
 
 - name: Create config directory
-  file:
+  ansible.builtin.file:
     path: "{{ deluge_config_dir }}"
     state: directory
     mode: 0700
@@ -25,7 +25,7 @@
 
 # deluged
 - name: Checking if deluged config file needs an update
-  template:
+  ansible.builtin.template:
     src: "{{ deluge_core_conf_template }}"
     dest: "{{ deluge_config_dir }}/core.conf"
     owner: "{{ deluge_service_user }}"
@@ -38,7 +38,7 @@
     - deluge_config
 
 - name: Stopping deluged because config file needs an update
-  service:
+  ansible.builtin.service:
     name: deluged
     state: stopped
   become: true
@@ -47,7 +47,7 @@
     - deluge_config
 
 - name: Copy deluged configuration file
-  template:
+  ansible.builtin.template:
     src: "{{ deluge_core_conf_template }}"
     dest: "{{ deluge_config_dir }}/core.conf"
     owner: "{{ deluge_service_user }}"
@@ -61,7 +61,7 @@
 
 # deluge-web
 - name: Checking if deluge-web config file needs an update
-  template:
+  ansible.builtin.template:
     src: "{{ deluge_web_conf_template }}"
     dest: "{{ deluge_config_dir }}/web.conf"
     owner: "{{ deluge_service_user }}"
@@ -75,7 +75,7 @@
     - deluge_config
 
 - name: Stopping deluge-web because config file needs an update
-  service:
+  ansible.builtin.service:
     name: deluge-web
     state: stopped
   become: true
@@ -85,7 +85,7 @@
     - deluge_config
 
 - name: Copy deluge-web configuration file
-  template:
+  ansible.builtin.template:
     src: "{{ deluge_web_conf_template }}"
     dest: "{{ deluge_config_dir }}/web.conf"
     owner: "{{ deluge_service_user }}"
