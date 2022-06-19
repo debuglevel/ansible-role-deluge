@@ -87,6 +87,10 @@
   tags:
     - deluge
 
+- name: systemd daemon-reload
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
 - name: Enable and start deluged service
   systemd:
     name: deluged
