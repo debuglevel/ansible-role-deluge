@@ -9,3 +9,6 @@
 
 - name: Start Configure
   ansible.builtin.include: configure.yml
+
+- name: Configure users
+  ansible.builtin.include: users.yml
