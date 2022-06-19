@@ -10,17 +10,17 @@
   become: true
   become_user: root
 
-- name: Get all users from device
+- name: Get all users
   getent:
     database: passwd
     key:
 
-- name: Set fact when user exists
+- name: Set fact if user exists
   set_fact:
     user_exists: true
   when: deluge_service_user in ansible_facts.getent_passwd
 
-- name: Set fact when user does not exist
+- name: Set fact if user does not exist
   set_fact:
     user_exists: false
   when: deluge_service_user not in ansible_facts.getent_passwd
