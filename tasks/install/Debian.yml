@@ -11,7 +11,7 @@
   tags:
     - deluge
 
-- name: Add PPA
+- name: Add repository
   ansible.builtin.apt_repository:
     repo: deb [trusted=yes] http://ppa.launchpad.net/deluge-team/stable/ubuntu/ xenial main
     state: present
