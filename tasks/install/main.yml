@@ -66,7 +66,7 @@
   tags:
     - deluge
 
-- name: Deluge download directory should be created
+- name: Ensure Deluge download directory
   file:
     path: "{{ deluge_download_location }}"
     owner: "{{ deluge_service_user }}"
