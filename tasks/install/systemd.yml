@@ -92,6 +92,7 @@
 - name: Reload systemd daemon
   ansible.builtin.systemd:
     daemon_reload: yes
+  become: true
 
 - name: Enable and start deluged service
   systemd:
