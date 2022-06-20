@@ -1,5 +1,5 @@
 ---
-- name: Verifying deluged port is open
+- name: Verify deluged port is open
   wait_for:
     host: 127.0.0.1
     port: "{{ item }}"
@@ -13,7 +13,7 @@
     - verify
     - deluge
 
-- name: Verifying deluge-web port is open
+- name: Verify deluge-web port is open
   wait_for:
     host: 127.0.0.1
     port: "{{ item }}"

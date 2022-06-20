@@ -13,7 +13,7 @@
     - deluge
     - deluge_config
 
-- name: Checking if there are Deluge users to be added
+- name: Check if there are Deluge users to be added
   ansible.builtin.lineinfile:
     dest: "{{ deluge_config_dir }}/auth"
     regexp: "^{{ item.name }}:{{ item.password }}:{{ item.access_level }}$"
@@ -30,7 +30,7 @@
     - deluge
     - deluge_config
 
-- name: Checking if there are Deluge users to be removed
+- name: Check if there are Deluge users to be removed
   ansible.builtin.lineinfile:
     dest: "{{ deluge_config_dir }}/auth"
     regexp: "^{{ item }}"
