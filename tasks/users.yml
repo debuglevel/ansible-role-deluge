@@ -11,6 +11,7 @@
   check_mode: true
   register: _deluge_users_to_add
   with_items: "{{ deluge_users_to_add }}"
+  become: true
   tags:
     - deluge
     - deluge_config
@@ -26,6 +27,7 @@
   check_mode: true
   register: _deluge_users_to_remove
   with_items: "{{ deluge_users_to_remove }}"
+  become: true
   tags:
     - deluge
     - deluge_config
@@ -35,6 +37,7 @@
     name: deluged
     state: stopped
   when: _deluge_users_to_add|changed or _deluge_users_to_remove|changed
+  become: true
   tags:
     - deluge
     - deluge_config
@@ -50,6 +53,7 @@
     backup: true
     state: present
   with_items: "{{ deluge_users_to_add }}"
+  become: true
   notify: restart deluged
   tags:
     - deluge
@@ -65,6 +69,7 @@
     backup: true
     state: absent
   with_items: "{{ deluge_users_to_remove }}"
+  become: true
   notify: restart deluged
   tags:
     - deluge
