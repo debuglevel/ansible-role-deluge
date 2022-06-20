@@ -5,7 +5,7 @@
     port: "{{ item }}"
     state: started
     delay: 0  # No wait before first check (sec)
-    timeout: 10  # Stop checking after timeout (sec)
+    timeout: 30  # Stop checking after timeout (sec)
   ignore_errors: false
   loop:
     - 58846
@@ -19,7 +19,7 @@
     port: "{{ item }}"
     state: started
     delay: 0  # No wait before first check (sec)
-    timeout: 10  # Stop checking after timeout (sec)
+    timeout: 30  # Stop checking after timeout (sec)
   ignore_errors: false
   loop:
     - 8112
