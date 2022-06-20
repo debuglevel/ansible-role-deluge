@@ -3,6 +3,7 @@
   ansible.builtin.systemd:
     name: deluged
     enabled: true
+    state: started
   become: true
   tags:
     - deluge
@@ -11,6 +12,7 @@
   ansible.builtin.systemd:
     name: deluge-web
     enabled: true
+    state: started
   become: true
   when: deluge_web
   tags:
