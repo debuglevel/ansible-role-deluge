@@ -11,14 +11,19 @@
     - deluge
     - deluge_config
 
-- name: Ensure download directory
+- name: Ensure download directories
   ansible.builtin.file:
-    path: "{{ deluge_download_location }}"
+    path: "{{ item }}"
     state: directory
     recurse: true
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
-    mode: u+rwx,g+rx-w,o+rx-w
+    mode: u+rwx,g+rwx,o+rwx
   become: true
+  loop:
+    - "{{ deluge_download_location }}"
+    - "{{ deluge_move_completed_path }}"
+    - "{{ deluge_torrentfiles_location }}"
+    - "{{ deluge_autoadd_location }}"
   tags:
     - deluge
