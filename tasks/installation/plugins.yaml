@@ -1,31 +1,39 @@
-- name: Create plugin directory
+- name: Ensure plugins directory
   ansible.builtin.file:
     path: "{{ deluge_config_dir }}/plugins"
     state: directory
-    mode: 0700
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
+    mode: u+rwx,g+rwx,o-rwx
+  become: true
   tags:
     - deluge
     - deluge_config
-  become: true
 
-- name: Download YaRSS2 plugin
+# YaRSS2
+- name: Ensure YaRSS2 plugin
   ansible.builtin.get_url:
     # TODO: would be nice if URL is constructed from python version
     # e.g. https://bitbucket.org/bendikro/deluge-yarss-plugin/downloads/YaRSS2-2.1.5-py3.9.egg
     url: '{{ deluge_yarss2_egg_url }}'
     dest: '{{ deluge_config_dir }}/plugins'
-    mode: 0644
     group: '{{ deluge_service_group }}'
     owner: '{{ deluge_service_user }}'
+    mode: u+rw-x,g+rw-x,o-rwx
   become: yes
-  become_user: '{{ deluge_service_user }}'
+  tags:
+    - deluge
+    - deluge_config
 
-- name: Configure YaRSS2 plugin
+- name: Ensure YaRSS2 plugin configuration
   ansible.builtin.template:
     src: templates/yarss2.conf.j2
     dest: '{{ deluge_config_dir }}/yarss2.conf'
+    group: '{{ deluge_service_group }}'
+    owner: '{{ deluge_service_user }}'
+    mode: u+rw-x,g+rw-x,o-rwx
     backup: yes
   become: yes
-  become_user: '{{ deluge_service_user }}'
+  tags:
+    - deluge
+    - deluge_config

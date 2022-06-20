@@ -1,0 +1,75 @@
+---
+# deluged
+- name: Checking if deluged configuration (core.conf) needs an update
+  ansible.builtin.template:
+    src: "{{ deluge_core_conf_template }}"
+    dest: "{{ deluge_config_dir }}/core.conf"
+    owner: "{{ deluge_service_user }}"
+    group: "{{ deluge_service_group }}"
+    mode: u+rw-x,g-rwx,o-rwx
+  check_mode: true
+  become: true
+  register: _deluge_core_conf
+  changed_when: false
+  tags:
+    - deluge_config
+
+- name: Stopping deluged before updating deluged configuration (core.conf) 
+  ansible.builtin.service:
+    name: deluged
+    state: stopped
+  become: true
+  when: _deluge_core_conf is changed
+  tags:
+    - deluge_config
+
+- name: Ensure deluged configuration (core.conf) 
+  ansible.builtin.template:
+    src: "{{ deluge_core_conf_template }}"
+    dest: "{{ deluge_config_dir }}/core.conf"
+    owner: "{{ deluge_service_user }}"
+    group: "{{ deluge_service_group }}"
+    mode: u+rw-x,g-rwx,o-rwx
+    backup: true
+  become: true
+  notify: Restart deluged
+  tags:
+    - deluge_config
+
+# deluge-web
+- name: Checking if deluge-web configuration needs an update
+  ansible.builtin.template:
+    src: "{{ deluge_web_conf_template }}"
+    dest: "{{ deluge_config_dir }}/web.conf"
+    owner: "{{ deluge_service_user }}"
+    group: "{{ deluge_service_group }}"
+    mode: u+rw-x,g-rwx,o-rwx
+  check_mode: true
+  become: true
+  register: _deluge_web_conf
+  changed_when: false
+  tags:
+    - deluge_config
+
+- name: Stopping deluge-web because configuration needs an update
+  ansible.builtin.service:
+    name: deluge-web
+    state: stopped
+  become: true
+  when: _deluge_web_conf is changed
+  tags:
+    - deluge_config
+
+- name: Ensure deluge-web configuration
+  ansible.builtin.template:
+    src: "{{ deluge_web_conf_template }}"
+    dest: "{{ deluge_config_dir }}/web.conf"
+    owner: "{{ deluge_service_user }}"
+    group: "{{ deluge_service_group }}"
+    mode: u+rw-x,g-rwx,o-rwx
+    backup: true
+  become: true
+  notify: Restart deluge-web
+  when: deluge_web
+  tags:
+    - deluge_config

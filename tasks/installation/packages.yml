@@ -1,12 +1,10 @@
 ---
-
-- name: Install gnupg
+- name: Ensure GnuPG
   ansible.builtin.apt:
     name: gnupg
-    update_cache: true
     state: present
-    cache_valid_time: 100
-  when: ansible_distribution == 'Debian'
+    update_cache: true
+    cache_valid_time: 3600
   become: true
   tags:
     - deluge
@@ -15,7 +13,6 @@
   ansible.builtin.apt_repository:
     repo: deb [trusted=yes] http://ppa.launchpad.net/deluge-team/stable/ubuntu/ xenial main
     state: present
-  when: ansible_distribution == 'Debian'
   become: true
   tags:
     - deluge
@@ -26,25 +23,26 @@
     id: C5E6A5ED249AD24C
     state: present
   become: true
-  when: ansible_distribution == 'Debian'
   tags:
     - deluge
 
-- name: Install deluged
+- name: Ensure deluged
   ansible.builtin.apt:
-    name: ['deluged', 'deluge-console']
-    update_cache: true
+    name:
+      - deluged
+      - deluge-console
     state: present
+    update_cache: true
     cache_valid_time: 3600
   become: true
   tags:
     - deluge
 
-- name: Install deluge-web
+- name: Ensure deluge-web
   ansible.builtin.apt:
     name: deluge-web
-    update_cache: true
     state: present
+    update_cache: true
     cache_valid_time: 3600
   become: true
   when: deluge_web

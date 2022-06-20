@@ -1,0 +1,13 @@
+---
+- name: Ensure packages
+  ansible.builtin.include: packages.yaml
+
+- name: Ensure service accounts
+  ansible.builtin.include: service-accounts.yaml
+
+- name: Ensure plugins
+  ansible.builtin.include: plugins.yaml
+
+- name: Ensure systemd units
+  ansible.builtin.include: systemd-units.yaml
+  

@@ -1,0 +1,9 @@
+---
+- name: Ensure directories
+  ansible.builtin.include: configuration/directories.yaml
+
+- name: Ensure Deluge users
+  ansible.builtin.include: configuration/users.yaml
+
+- name: Ensure Deluge configurations
+  ansible.builtin.include: configuration/files.yaml

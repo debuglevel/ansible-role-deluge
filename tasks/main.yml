@@ -1,14 +1,9 @@
 ---
-- name: Check for supported OS
-  ansible.builtin.assert:
-    that:
-      - "ansible_os_family in supported_ansible_os_families"
+- name: Ensure Deluge installation
+  ansible.builtin.include: installation/main.yaml
 
-- name: Start Install
-  ansible.builtin.include: install/main.yml
+- name: Ensure Deluge configuration
+  ansible.builtin.include: configuration/main.yaml
 
-- name: Start Configure
-  ansible.builtin.include: configure.yml
-
-- name: Configure users
-  ansible.builtin.include: users.yml
+- name: Ensure services are active
+  ansible.builtin.include: services.yaml

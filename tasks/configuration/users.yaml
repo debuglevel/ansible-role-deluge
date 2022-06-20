@@ -18,13 +18,13 @@
     dest: "{{ deluge_config_dir }}/auth"
     regexp: "^{{ item.name }}:{{ item.password }}:{{ item.access_level }}$"
     line: "{{ item.name }}:{{ item.password }}:{{ item.access_level }}"
+    state: present
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
-    mode: '0640'
-    state: present
+    mode: u+rw-x,g+rw-x,o-rwx
   check_mode: true
   register: _deluge_users_to_add
-  with_items: "{{ deluge_users_to_add }}"
+  loop: "{{ deluge_users_to_add }}"
   become: true
   tags:
     - deluge
@@ -34,19 +34,19 @@
   ansible.builtin.lineinfile:
     dest: "{{ deluge_config_dir }}/auth"
     regexp: "^{{ item }}"
+    state: absent
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
-    mode: '0640'
-    state: absent
+    mode: u+rw-x,g+rw-x,o-rwx
   check_mode: true
   register: _deluge_users_to_remove
-  with_items: "{{ deluge_users_to_remove }}"
+  loop: "{{ deluge_users_to_remove }}"
   become: true
   tags:
     - deluge
     - deluge_config
 
-- name: Deluge users need to be added or removed. deluged should be stopped beforehand
+- name: Ensure deluged is stopped before adding/removing users. 
   ansible.builtin.service:
     name: deluged
     state: stopped
@@ -56,35 +56,35 @@
     - deluge
     - deluge_config
 
-- name: Add deluge users
+- name: Ensure Deluge users available
   ansible.builtin.lineinfile:
     dest: "{{ deluge_config_dir }}/auth"
     regexp: "^{{ item.name }}:{{ item.password }}:{{ item.access_level }}$"
     line: "{{ item.name }}:{{ item.password }}:{{ item.access_level }}"
+    state: present
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
-    mode: '0640'
+    mode: u+rw-x,g+rw-x,o-rwx
     backup: true
-    state: present
-  with_items: "{{ deluge_users_to_add }}"
+  loop: "{{ deluge_users_to_add }}"
   become: true
-  notify: restart deluged
+  notify: Restart deluged
   tags:
     - deluge
     - deluge_config
 
-- name: Remove deluge users
+- name: Ensure deluge users removed
   ansible.builtin.lineinfile:
     dest: "{{ deluge_config_dir }}/auth"
     regexp: "^{{ item }}"
+    state: absent
     owner: "{{ deluge_service_user }}"
     group: "{{ deluge_service_group }}"
-    mode: '0640'
+    mode: u+rw-x,g+rw-x,o-rwx
     backup: true
-    state: absent
-  with_items: "{{ deluge_users_to_remove }}"
+  loop: "{{ deluge_users_to_remove }}"
   become: true
-  notify: restart deluged
+  notify: Restart deluged
   tags:
     - deluge
     - deluge_config
