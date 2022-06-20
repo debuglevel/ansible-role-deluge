@@ -6,7 +6,7 @@
     state: started
     delay: 0  # No wait before first check (sec)
     timeout: 30  # Stop checking after timeout (sec)
-  ignore_errors: false
+  ignore_errors: true
   loop:
     - 58846
   tags:
@@ -20,7 +20,7 @@
     state: started
     delay: 0  # No wait before first check (sec)
     timeout: 30  # Stop checking after timeout (sec)
-  ignore_errors: false
+  ignore_errors: true
   loop:
     - 8112
   when: deluge_web
