@@ -1,4 +1,18 @@
 ---
+- name: Ensure auth file
+  ansible.builtin.file:
+    path: "{{ deluge_config_dir }}/auth"
+    state: touch
+    owner: "{{ deluge_service_user }}"
+    group: "{{ deluge_service_group }}"
+    mode: u+rw-x,g+rw-x,o-rwx
+    modification_time: preserve
+    access_time: preserve
+  become: true
+  tags:
+    - deluge
+    - deluge_config
+
 - name: Checking if there are Deluge users to be added
   ansible.builtin.lineinfile:
     dest: "{{ deluge_config_dir }}/auth"
