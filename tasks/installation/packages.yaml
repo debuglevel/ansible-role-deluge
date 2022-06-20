@@ -9,7 +9,7 @@
   tags:
     - deluge
 
-- name: Add repository
+- name: Ensure repository
   ansible.builtin.apt_repository:
     repo: deb [trusted=yes] http://ppa.launchpad.net/deluge-team/stable/ubuntu/ xenial main
     state: present
@@ -17,7 +17,7 @@
   tags:
     - deluge
 
-- name: Add apt key
+- name: Ensure apt key
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
     id: C5E6A5ED249AD24C
