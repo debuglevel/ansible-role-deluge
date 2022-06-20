@@ -1,0 +1,27 @@
+---
+- name: Verifying deluged port is open
+  wait_for:
+    host: 127.0.0.1
+    port: "{{ item }}"
+    state: started
+    delay: 0  # No wait before first check (sec)
+    timeout: 10  # Stop checking after timeout (sec)
+  ignore_errors: false
+  loop:
+    - 58846
+  tags:
+    - check
+
+- name: Verifying deluge-web port is open
+  wait_for:
+    host: 127.0.0.1
+    port: "{{ item }}"
+    state: started
+    delay: 0  # No wait before first check (sec)
+    timeout: 10  # Stop checking after timeout (sec)
+  ignore_errors: false
+  loop:
+    - 8112
+  when: deluge_web
+  tags:
+    - check

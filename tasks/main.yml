@@ -7,3 +7,6 @@
 
 - name: Ensure services are active
   ansible.builtin.include: services.yaml
+
+- name: Verify service ports are open
+  ansible.builtin.include: verify-services.yaml
