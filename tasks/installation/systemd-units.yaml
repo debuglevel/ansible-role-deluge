@@ -23,6 +23,7 @@
   become: true
   tags:
     - deluge
+    - deluge_web
 
 # systemd
 - name: Reload systemd daemon

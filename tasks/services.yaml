@@ -4,6 +4,8 @@
     name: deluged
     enabled: true
   become: true
+  tags:
+    - deluge
 
 - name: Ensure deluge-web service is enabled and started
   ansible.builtin.systemd:
@@ -11,3 +13,6 @@
     enabled: true
   become: true
   when: deluge_web
+  tags:
+    - deluge
+    - deluge_web

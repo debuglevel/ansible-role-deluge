@@ -10,7 +10,8 @@
   loop:
     - 58846
   tags:
-    - check
+    - verify
+    - deluge
 
 - name: Verifying deluge-web port is open
   wait_for:
@@ -24,4 +25,6 @@
     - 8112
   when: deluge_web
   tags:
-    - check
+    - verify
+    - deluge
+    - deluge_web
