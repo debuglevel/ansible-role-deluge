@@ -9,6 +9,8 @@ Type=simple
 UMask=027
 ExecStart=/usr/bin/deluge-web -d -c {{ deluge_config_dir }} -L {{ deluge_log_level }}
 Restart=on-failure
+User={{ deluge_service_user }}
+Group={{ deluge_service_group }}
 
 [Install]
 WantedBy=multi-user.target

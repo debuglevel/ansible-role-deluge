@@ -1,27 +1,5 @@
 ---
 # deluged
-- name: Ensure deluged user service directory
-  ansible.builtin.file:
-    path: "{{ deluge_user_service_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: u+rwx,g-rwx,o-rwx
-  become: true
-  tags:
-    - deluge
-
-- name: Ensure deluged user service config
-  ansible.builtin.template:
-    src: "user.conf.j2"
-    dest: "{{ deluge_user_service_dir }}user.conf"
-    owner: root
-    group: root
-    mode: u+rw-x,g-rwx,o-rwx
-  become: true
-  tags:
-    - deluge
-
 - name: Ensure deluged unit file
   ansible.builtin.template:
     src: "deluged.service.j2"
@@ -34,31 +12,6 @@
     - deluge
 
 # deluge-web
-- name: Ensure deluge-web user service directory
-  ansible.builtin.file:
-    path: "{{ deluge_web_user_service_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: u+rwx,g-rwx,o-rwx
-  when:
-    - deluge_web
-  become: true
-  tags:
-    - deluge
-
-- name: Ensure deluge-web user service config
-  ansible.builtin.template:
-    src: "user.conf.j2"
-    dest: "{{ deluge_web_user_service_dir }}user.conf"
-    owner: root
-    group: root
-    mode: u+rw-x,g-rwx,o-rwx
-  when: deluge_web
-  become: true
-  tags:
-    - deluge
-
 - name: Ensure deluge-web unit file
   ansible.builtin.template:
     src: "deluge-web.service.j2"
