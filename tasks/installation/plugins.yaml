@@ -25,7 +25,7 @@
     - deluge
     - deluge_config
 
-- name: Ensure YaRSS2 plugin configuration
+- name: Ensure YaRSS2 plugin configuration file
   ansible.builtin.template:
     src: templates/yarss2.conf.j2
     dest: '{{ deluge_config_dir }}/yarss2.conf'

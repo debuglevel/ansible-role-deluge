@@ -46,7 +46,7 @@
     - deluge
     - deluge_config
 
-- name: Ensure deluged is stopped before adding/removing users. 
+- name: Ensure deluged is stopped before adding/removing users
   ansible.builtin.service:
     name: deluged
     state: stopped

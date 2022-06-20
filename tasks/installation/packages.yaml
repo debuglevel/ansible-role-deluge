@@ -26,7 +26,7 @@
   tags:
     - deluge
 
-- name: Ensure deluged
+- name: Ensure deluged package
   ansible.builtin.apt:
     name:
       - deluged
@@ -38,7 +38,7 @@
   tags:
     - deluge
 
-- name: Ensure deluge-web
+- name: Ensure deluge-web package
   ansible.builtin.apt:
     name: deluge-web
     state: present

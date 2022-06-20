@@ -5,5 +5,5 @@
 - name: Ensure Deluge users
   ansible.builtin.include: configuration/users.yaml
 
-- name: Ensure Deluge configurations
+- name: Ensure Deluge configuration files
   ansible.builtin.include: configuration/files.yaml

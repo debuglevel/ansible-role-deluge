@@ -1,6 +1,6 @@
 ---
 # deluged
-- name: Checking if deluged configuration (core.conf) needs an update
+- name: Checking if deluged configuration file (core.conf) needs an update
   ansible.builtin.template:
     src: "{{ deluge_core_conf_template }}"
     dest: "{{ deluge_config_dir }}/core.conf"
@@ -14,7 +14,7 @@
   tags:
     - deluge_config
 
-- name: Stopping deluged before updating deluged configuration (core.conf) 
+- name: Stopping deluged before updating deluged configuration file (core.conf) 
   ansible.builtin.service:
     name: deluged
     state: stopped
@@ -23,7 +23,7 @@
   tags:
     - deluge_config
 
-- name: Ensure deluged configuration (core.conf) 
+- name: Ensure deluged configuration file (core.conf) 
   ansible.builtin.template:
     src: "{{ deluge_core_conf_template }}"
     dest: "{{ deluge_config_dir }}/core.conf"
@@ -37,7 +37,7 @@
     - deluge_config
 
 # deluge-web
-- name: Checking if deluge-web configuration needs an update
+- name: Checking if deluge-web configuration file needs an update
   ansible.builtin.template:
     src: "{{ deluge_web_conf_template }}"
     dest: "{{ deluge_config_dir }}/web.conf"
@@ -51,7 +51,7 @@
   tags:
     - deluge_config
 
-- name: Stopping deluge-web because configuration needs an update
+- name: Stopping deluge-web because configuration file needs an update
   ansible.builtin.service:
     name: deluge-web
     state: stopped
@@ -60,7 +60,7 @@
   tags:
     - deluge_config
 
-- name: Ensure deluge-web configuration
+- name: Ensure deluge-web configuration file
   ansible.builtin.template:
     src: "{{ deluge_web_conf_template }}"
     dest: "{{ deluge_config_dir }}/web.conf"
