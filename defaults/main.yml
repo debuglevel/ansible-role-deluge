@@ -15,6 +15,22 @@ deluge_plugins:
   - Blocklist
   - YaRSS2
 
+deluge_users_to_add:
+  - name: deluge
+    password: deluge
+    access_level: 10
+  - name: localclient
+    password: localclient
+    access_level: 10
+deluge_users_to_remove: []
+
+# YaRSS2
+deluge_yarss2_egg_url: https://bitbucket.org/bendikro/deluge-yarss-plugin/downloads/YaRSS2-2.1.5-py3.8.egg  # Works for Ubuntu 20.04
+deluge_yarss2_rssfeed_site: test
+deluge_yarss2_rssfeed_url: ""
+deluge_yarss2_rssfeed_name: test
+deluge_yarss2_subscription_name: test
+
 # Deluge web
 deluge_web: true
 deluge_web_port: 8112

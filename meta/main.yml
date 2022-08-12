@@ -3,9 +3,8 @@ dependencies: []
 
 galaxy_info:
   role_name: deluge
-  author: Steven Marks
+  author: debuglevel
   description: Deluge2 install & configuration
-  company: "Total Debug"
   license: "license (BSD, MIT)"
   min_ansible_version: 2.4
   platforms:

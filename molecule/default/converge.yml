@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  become: true
-
-  roles:
-    - role: ansible-role-deluge
+  tasks:
+    - name: "Include ansible-role-deluge"
+      include_role:
+        name: "ansible-role-deluge"
