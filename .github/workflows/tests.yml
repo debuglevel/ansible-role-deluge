@@ -17,6 +17,7 @@ jobs:
     name: Molecule
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false  # Continue other jobs if one failed
       matrix:
         distro:
           - ubuntu2004
